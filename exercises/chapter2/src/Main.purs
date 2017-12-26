@@ -17,4 +17,11 @@ circleArea :: Number -> Number
 circleArea r = pi * r * r
 
 
+-- 2. (Medium) Use bower install to install the purescript-globals package as a
+-- dependency. Test out its functions in PSCi (Hint: you can use the :browse
+-- command in PSCi to browse the contents of a module).
+
+-- installed (via bower.json) and played
+
+
 main = logShow (diagonal 3.0 4.0)
