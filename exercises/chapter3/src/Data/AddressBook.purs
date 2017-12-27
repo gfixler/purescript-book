@@ -49,3 +49,13 @@ findEntry firstName lastName = head <<< filter filterEntry
 -- head :: forall a. List a -> List a
 -- (<<<) :: forall b c d a. Semigroupoid a => a c d -> a b c -> a b d
 -- head <<< filter filterEntry :: Entry
+
+
+-- 2. (Medium) Write a function which looks up an Entry given a street address,
+-- by reusing the existing code in findEntry. Test your function in PSCi.
+
+findByAddr :: String -> AddressBook -> Maybe Entry
+findByAddr addr = head <<< filter filterEntry
+    where
+    filterEntry :: Entry -> Boolean
+    filterEntry entry = entry.address.street == addr
