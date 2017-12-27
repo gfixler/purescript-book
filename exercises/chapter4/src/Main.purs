@@ -2,9 +2,10 @@ module Main where
 
 import Prelude
 
-import Data.Array (filter, null)
+import Data.Array ((..), filter, length, null)
 import Data.Array.Partial (head, tail)
 import Partial.Unsafe (unsafePartial)
+import Data.Foldable (product)
 
 
 -- 4.1.1. (Easy) Write a recursive function which returns true if and only if
@@ -60,3 +61,16 @@ infixl 5 filter as $?
 
 removeNegs' :: Array Number -> Array Number
 removeNegs' xs = (<=) 0.0 $? xs
+
+
+-- 4.3.1 (Easy) Use the factors function to define a function isPrime which
+-- tests if its integer argument is prime or not.
+
+factors :: Int -> Array (Array Int)
+factors n = filter (\xs -> product xs == n) $ do
+    i <- 1 .. n
+    j <- i .. n
+    [[i, j]]
+
+isPrime :: Int -> Boolean
+isPrime = (==) 1 <<< length <<< factors
