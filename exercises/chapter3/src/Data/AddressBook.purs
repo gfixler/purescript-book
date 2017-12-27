@@ -3,7 +3,7 @@ module Data.AddressBook where
 import Prelude
 
 import Control.Plus (empty)
-import Data.List (List(..), filter, head)
+import Data.List (List(..), filter, head, null)
 import Data.Maybe (Maybe)
 
 type Address =
@@ -59,3 +59,14 @@ findByAddr addr = head <<< filter filterEntry
     where
     filterEntry :: Entry -> Boolean
     filterEntry entry = entry.address.street == addr
+
+
+-- 3. (Medium) Write a function which tests whether a name appears in a
+-- AddressBook, returning a Boolean value. Hint: Use PSCi to find the type of
+-- the Data.List.null function, which test whether a list is empty or not.
+
+nameInAddressBook :: String -> String -> AddressBook -> Boolean
+nameInAddressBook firstName lastName = not <<< null <<< filter filterEntry
+  where
+  filterEntry :: Entry -> Boolean
+  filterEntry entry = entry.firstName == firstName && entry.lastName == lastName
