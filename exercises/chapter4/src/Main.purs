@@ -35,3 +35,10 @@ countEvens arr =
     if null arr
         then 0
         else (if isEven (unsafePartial head arr) then 1 else 0) + countEvens (unsafePartial tail arr)
+
+
+-- 4.2.1. (Easy) Use the map or <$> function to write a function which calculates
+-- the squares of an array of numbers.
+
+squareAll :: Array Number -> Array Number
+squareAll = map (\x -> x * x)
