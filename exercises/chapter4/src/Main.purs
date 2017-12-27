@@ -49,3 +49,14 @@ squareAll = map (\x -> x * x)
 
 removeNegs :: Array Number -> Array Number
 removeNegs = filter (\x -> x >= 0.0)
+
+
+-- 4.2.3 (Medium) Define an infix synonym <$?> for filter. Rewrite your answer
+-- to the previous question to use your new operator. Experiment with the
+-- precedence level and associativity of your operator in PSCi.
+
+-- settled on 5 as lowest that allows: f $? arr1 <> g $? arr2
+infixl 5 filter as $?
+
+removeNegs' :: Array Number -> Array Number
+removeNegs' xs = (<=) 0.0 $? xs
