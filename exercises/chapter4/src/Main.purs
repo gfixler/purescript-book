@@ -6,6 +6,7 @@ import Data.Array ((..), filter, length, null)
 import Data.Array.Partial (head, tail)
 import Partial.Unsafe (unsafePartial)
 import Data.Foldable (product)
+import Control.MonadZero (guard)
 
 
 -- 4.1.1. (Easy) Write a recursive function which returns true if and only if
@@ -85,3 +86,18 @@ cartProd xs ys = do
     x <- xs
     y <- ys
     pure [x, y]
+
+
+-- 4.3.3 (Medium) A Pythagorean triple is an array of numbers [a, b, c] such
+-- that a² + b² = c². Use the guard function in an array comprehension to write
+-- a function triples which takes a number n and calculates all Pythagorean
+-- triples whose components are less than n. Your function should have type Int
+-- -> Array (Array Int).
+
+triples :: Int -> Array (Array Int)
+triples n = do
+    a <- 1 .. n
+    b <- a .. n
+    c <- b .. n
+    guard $ a * a + b * b == c * c
+    pure [a, b, c]
