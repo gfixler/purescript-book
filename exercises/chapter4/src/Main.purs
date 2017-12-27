@@ -10,3 +10,12 @@ import Prelude
 isEven :: Int -> Boolean
 isEven 0 = true
 isEven n = not $ isEven (n - 1)
+
+-- call stack safe; tail-call optimized
+isEven' :: Int -> Boolean
+isEven' = go true
+    where
+    go :: Boolean -> Int -> Boolean
+    go true 0 = true
+    go false 0 = false
+    go b n = go (not b) (n - 1)
