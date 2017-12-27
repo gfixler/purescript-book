@@ -2,7 +2,7 @@ module Main where
 
 import Prelude
 
-import Data.Array (null)
+import Data.Array (filter, null)
 import Data.Array.Partial (head, tail)
 import Partial.Unsafe (unsafePartial)
 
@@ -42,3 +42,10 @@ countEvens arr =
 
 squareAll :: Array Number -> Array Number
 squareAll = map (\x -> x * x)
+
+
+-- 4.2.2 (Easy) Use the filter function to write a function which removes the
+-- negative numbers from an array of numbers.
+
+removeNegs :: Array Number -> Array Number
+removeNegs = filter (\x -> x >= 0.0)
