@@ -74,3 +74,14 @@ factors n = filter (\xs -> product xs == n) $ do
 
 isPrime :: Int -> Boolean
 isPrime = (==) 1 <<< length <<< factors
+
+
+-- 4.3.2 (Medium) Write a function which uses do notation to find the cartesian
+-- product of two arrays, i.e. the set of all pairs of elements a, b, where a
+-- is an element of the first array, and b is an element of the second.
+
+cartProd :: forall a. Array a -> Array a -> Array (Array a)
+cartProd xs ys = do
+    x <- xs
+    y <- ys
+    pure [x, y]
