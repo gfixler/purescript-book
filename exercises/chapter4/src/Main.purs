@@ -119,3 +119,8 @@ triples n = do
 
 allTrue :: Array Boolean -> Boolean
 allTrue = foldl (&&) true
+
+-- 4.4.2 (Medium) Characterize those arrays xs for which the function
+-- foldl (==) false xs returns true.
+
+-- Arrays with an odd number of false elements, and only these, return true.
