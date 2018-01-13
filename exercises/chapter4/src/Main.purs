@@ -2,7 +2,7 @@ module Main where
 
 import Prelude
 
-import Data.Array ((..), filter, length, null)
+import Data.Array ((..), (:), filter, length, null)
 import Data.Array.Partial (head, tail)
 import Data.Foldable (foldl)
 import Partial.Unsafe (unsafePartial)
@@ -144,3 +144,8 @@ count p = go 0
     go c xs = if p (unsafePartial head xs)
                   then go (c+1) (unsafePartial tail xs)
                   else go c (unsafePartial tail xs)
+
+-- 4.4.3 (Medium) Write reverse in terms of foldl.
+
+reverse' :: forall a. Array a -> Array a
+reverse' = foldl (\xs x -> x : xs) []
