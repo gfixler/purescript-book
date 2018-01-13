@@ -124,3 +124,23 @@ allTrue = foldl (&&) true
 -- foldl (==) false xs returns true.
 
 -- Arrays with an odd number of false elements, and only these, return true.
+
+-- 4.4.3 (Medium) Rewrite the following function in tail recursive form using
+-- an accumulator parameter:
+
+-- import Prelude
+-- import Data.Array.Partial (head, tail)
+--
+-- count :: forall a. (a -> Boolean) -> Array a -> Int
+-- count _ [] = 0
+-- count p xs = if p (unsafePartial head xs)
+--                then count p (unsafePartial tail xs) + 1
+--                else count p (unsafePartial tail xs)
+
+count :: forall a. (a -> Boolean) -> Array a -> Int
+count p = go 0
+    where
+    go c [] = c
+    go c xs = if p (unsafePartial head xs)
+                  then go (c+1) (unsafePartial tail xs)
+                  else go c (unsafePartial tail xs)
