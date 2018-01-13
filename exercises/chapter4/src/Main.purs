@@ -4,6 +4,7 @@ import Prelude
 
 import Data.Array ((..), filter, length, null)
 import Data.Array.Partial (head, tail)
+import Data.Foldable (foldl)
 import Partial.Unsafe (unsafePartial)
 import Data.Foldable (product)
 import Control.MonadZero (guard)
@@ -112,3 +113,9 @@ triples n = do
 -- factorizations 1 = pure [1]
 -- factorizations n = do
 --     TODO
+
+-- 4.4.1 (Easy) Use foldl to test whether an array of boolean values are all
+-- true.
+
+allTrue :: Array Boolean -> Boolean
+allTrue = foldl (&&) true
