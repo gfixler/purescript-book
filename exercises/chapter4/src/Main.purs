@@ -101,3 +101,14 @@ triples n = do
     c <- b .. n
     guard $ a * a + b * b == c * c
     pure [a, b, c]
+
+
+-- 4.3.4 (Difficult) Write a function factorizations which produces all
+-- factorizations of an integer n, i.e. arrays of integers whose product is n.
+-- Hint: for an integer greater than 1, break the problem down into two
+-- subproblems: finding the first factor, and finding the remaining factors.
+
+-- factorizations :: Int -> Array (Array Int)
+-- factorizations 1 = pure [1]
+-- factorizations n = do
+--     TODO
