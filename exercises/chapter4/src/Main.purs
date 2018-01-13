@@ -2,7 +2,7 @@ module Main where
 
 import Prelude
 
-import Data.Array ((..), (:), filter, length, null)
+import Data.Array ((..), (:), filter, length, mapMaybe, null)
 import Data.Array.Partial (head, tail)
 import Data.Foldable (foldl)
 import Partial.Unsafe (unsafePartial)
@@ -174,4 +174,14 @@ onlyFiles' file = if (isDirectory file) then files else (file : files)
 
 onlyFiles'' :: Path -> Array Path
 onlyFiles'' = filter (not <<< isDirectory) <<< allFiles
+
+-- 4.5.2 (Medium) Write a fold to determine the largest and smallest files in
+-- the filesystem.
+
+smallestAndLargestFiles :: Path -> Array Int
+smallestAndLargestFiles xs = foldl
+                             (unsafePartial (\[l, h] x -> [min l x, max h x]))
+                             [999999999, -1]
+                             ss
+    where ss = mapMaybe size (onlyFiles xs)
 
