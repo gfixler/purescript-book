@@ -9,6 +9,9 @@ import Partial.Unsafe (unsafePartial)
 import Data.Foldable (product)
 import Control.MonadZero (guard)
 
+import FileOperations (allFiles)
+import Data.Path (Path, isDirectory, ls, size)
+
 
 -- 4.1.1. (Easy) Write a recursive function which returns true if and only if
 -- its input is an even integer.
@@ -149,3 +152,26 @@ count p = go 0
 
 reverse' :: forall a. Array a -> Array a
 reverse' = foldl (\xs x -> x : xs) []
+
+-- 4.5.1 (Easy) Write a function onlyFiles which returns all files
+-- (not directories) in all subdirectories of a directory.
+
+onlyFiles :: Path -> Array Path
+onlyFiles file =
+    if (isDirectory file)
+       then do
+           child <- ls file
+           onlyFiles child
+       else file : do
+           child <- ls file
+           onlyFiles child
+
+onlyFiles' :: Path -> Array Path
+onlyFiles' file = if (isDirectory file) then files else (file : files)
+    where files = do
+            child <- ls file
+            onlyFiles' child
+
+onlyFiles'' :: Path -> Array Path
+onlyFiles'' = filter (not <<< isDirectory) <<< allFiles
+
