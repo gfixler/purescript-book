@@ -29,6 +29,11 @@ type Person = { name :: String, address :: Address }
 sameCity :: Person -> Person -> Boolean
 sameCity { address: { city: c } } { address: { city: c' } } = c == c'
 
+gary = { name: "Gary Fixler", address: { street: "Poppy Meadow St.", city: "Los Angeles" } }
+mom  = { name: "Joyce Bernardini", address: { street: "15751 Triple Crown Ct.", city: "Fort Myers" } }
+dad = { name: "Gary Fixler", address: { street: "1351 Sherwood Dr.", city: "Vineland" } }
+karen = { name: "Karen Gaburo", address: { street: "1351 Sherwood Dr.", city: "Vineland" } }
+
 -- 5.2.2 (Medium) What is the most general type of the sameCity function,
 -- taking into account row polymorphism? What about the livesInLA function
 -- defined above?
@@ -46,3 +51,12 @@ livesInLA _ = false
 livesInLA' :: forall r1 r2. { address :: { city :: String | r1 } | r2 } -> Boolean
 livesInLA' { address: { city: "Los Angeles" } } = true
 livesInLA' _ = false
+
+-- 5.2.3 (Medium) Write a function fromSingleton which uses an array literal
+-- pattern to extract the sole member of a singleton array. If the array is not
+-- a singleton, your function should return a provided default value. Your
+-- function should have type forall a. a -> Array a -> a
+
+fromSingleton :: forall a. a -> Array a -> a
+fromSingleton _ [x] = x
+fromSingleton x _ = x
