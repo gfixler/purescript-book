@@ -67,3 +67,15 @@ fromSingleton x _ = x
 
 aCircle :: Shape
 aCircle = Circle (Point { x: 0.0, y: 0.0 }) 10.0
+
+-- 5.3.2 (Medium) Write a function from Shapes to Shapes, which scales its
+-- argument by a factor of 2.0, center the origin.
+
+scalePoint :: Number -> Point -> Point
+scalePoint n (Point { x, y }) = Point { x: x * n, y: y * n }
+
+enlarge :: Shape -> Shape
+enlarge (Circle p r) = Circle (scalePoint 2.0 p) (r * 2.0)
+enlarge (Rectangle p w h) = Rectangle (scalePoint 2.0 p) (w * 2.0) (h * 2.0)
+enlarge (Line p1 p2) = Line (scalePoint 2.0 p1) (scalePoint 2.0 p2)
+enlarge (Text p s) = Text (scalePoint 2.0 p) s
