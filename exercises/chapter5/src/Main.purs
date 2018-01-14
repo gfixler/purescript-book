@@ -2,6 +2,7 @@ module Main where
 
 import Prelude
 
+import Data.Maybe (Maybe(..))
 import Data.Picture
 
 -- 5.1.1 (Easy) Write the factorial function using pattern matching. Hint.
@@ -74,3 +75,11 @@ enlarge (Circle p r) = Circle (scalePoint 2.0 p) (r * 2.0)
 enlarge (Rectangle p w h) = Rectangle (scalePoint 2.0 p) (w * 2.0) (h * 2.0)
 enlarge (Line p1 p2) = Line (scalePoint 2.0 p1) (scalePoint 2.0 p2)
 enlarge (Text p s) = Text (scalePoint 2.0 p) s
+
+-- 5.3.3 (Medium) Write a function which extracts the text from a Shape. It
+-- should return Maybe String, and use the Nothing constructor if the input is
+-- not constructed using Text.
+
+getShapeText :: Shape -> Maybe String
+getShapeText (Text _ s) = Just s
+getShapeText _ = Nothing
