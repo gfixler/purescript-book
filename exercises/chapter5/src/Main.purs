@@ -83,3 +83,9 @@ enlarge (Text p s) = Text (scalePoint 2.0 p) s
 getShapeText :: Shape -> Maybe String
 getShapeText (Text _ s) = Just s
 getShapeText _ = Nothing
+
+-- 5.4.1 (Medium) Extend the vector graphics library with a new operation area
+-- which computes the area of a Shape. For the purposes of this exercise, the
+-- area of a piece of text is assumed to be zero.
+
+-- Done.
