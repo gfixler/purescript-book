@@ -28,3 +28,21 @@ type Person = { name :: String, address :: Address }
 
 sameCity :: Person -> Person -> Boolean
 sameCity { address: { city: c } } { address: { city: c' } } = c == c'
+
+-- 5.2.2 (Medium) What is the most general type of the sameCity function,
+-- taking into account row polymorphism? What about the livesInLA function
+-- defined above?
+
+sameCity' :: forall c r1 r2 r3 r4. Eq c =>
+             { address :: { city :: c | r1 } | r2 } ->
+             { address :: { city :: c | r3 } | r4 } ->
+             Boolean
+sameCity' { address: { city: c } } { address: { city: c' } } = c == c'
+
+livesInLA :: Person -> Boolean
+livesInLA { address: { city: "Los Angeles" } } = true
+livesInLA _ = false
+
+livesInLA' :: forall r1 r2. { address :: { city :: String | r1 } | r2 } -> Boolean
+livesInLA' { address: { city: "Los Angeles" } } = true
+livesInLA' _ = false
