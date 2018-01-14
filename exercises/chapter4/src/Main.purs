@@ -7,10 +7,11 @@ import Data.Array.Partial (head, tail)
 import Data.Foldable (foldl)
 import Partial.Unsafe (unsafePartial)
 import Data.Foldable (product)
+import Data.Maybe (Maybe(..))
 import Control.MonadZero (guard)
 
 import FileOperations (allFiles)
-import Data.Path (Path, isDirectory, ls, size)
+import Data.Path (Path, filename, isDirectory, ls, root, size)
 
 
 -- 4.1.1. (Easy) Write a recursive function which returns true if and only if
@@ -185,3 +186,26 @@ smallestAndLargestFiles xs = foldl
                              ss
     where ss = mapMaybe size (onlyFiles xs)
 
+-- 4.5.3 (Difficult) Write a function whereIs to search for a file by name. The
+-- function should return a value of type Maybe Path, indicating the directory
+-- containing the file, if it exists. It should behave as follows:
+
+--    > whereIs "/bin/ls"
+--    Just (/bin/)
+--
+--    > whereIs "/bin/cat"
+--    Nothing
+
+whereIs :: String -> Maybe Path
+whereIs name = case go root of
+                [] -> Nothing
+                [x] -> Just x
+                _ -> Nothing -- TODO: handle 2+ results
+    where
+    go path = do
+       file <- ls path
+       if isDirectory file
+           then go file
+           else if filename file == name
+                    then [path]
+                    else []
