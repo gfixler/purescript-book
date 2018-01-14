@@ -36,6 +36,11 @@ type Picture = Array Shape
 showPicture :: Picture -> Array String
 showPicture = map showShape
 
+area :: Shape -> Number
+area (Circle _ r) = Math.pi * r * r
+area (Rectangle _ w h) = w * h
+area _ = 0.0
+
 data Bounds = Bounds
   { top    :: Number
   , left   :: Number
