@@ -2,6 +2,7 @@ module Main where
 
 import Prelude
 
+import Data.Picture
 
 -- 5.1.1 (Easy) Write the factorial function using pattern matching. Hint.
 -- Consider the two cases zero and non-zero inputs.
@@ -55,3 +56,9 @@ livesInLA' _ = false
 fromSingleton :: forall a. a -> Array a -> a
 fromSingleton _ [x] = x
 fromSingleton x _ = x
+
+-- 5.3.1 (Easy) Construct a value of type Shape which represents a circle
+-- centered at the origin with radius 10.0.
+
+aCircle :: Shape
+aCircle = Circle (Point { x: 0.0, y: 0.0 }) 10.0
