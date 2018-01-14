@@ -46,3 +46,12 @@ livesInLA _ = false
 livesInLA' :: forall r1 r2. { address :: { city :: String | r1 } | r2 } -> Boolean
 livesInLA' { address: { city: "Los Angeles" } } = true
 livesInLA' _ = false
+
+-- 5.2.3 (Medium) Write a function fromSingleton which uses an array literal
+-- pattern to extract the sole member of a singleton array. If the array is not
+-- a singleton, your function should return a provided default value. Your
+-- function should have type forall a. a -> Array a -> a
+
+fromSingleton :: forall a. a -> Array a -> a
+fromSingleton _ [x] = x
+fromSingleton x _ = x
