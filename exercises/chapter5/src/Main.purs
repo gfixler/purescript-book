@@ -18,3 +18,13 @@ choose :: Int -> Int -> Int
 choose _ 0 = 1
 choose n k | n < k  = 0
            | otherwise = choose (n-1) (k-1) + choose (n-1) k
+
+-- 5.2.1 (Easy) Write a function sameCity which uses record patterns to test
+-- whether two Person records belong to the same city.
+
+type Address = { street :: String, city :: String }
+
+type Person = { name :: String, address :: Address }
+
+sameCity :: Person -> Person -> Boolean
+sameCity { address: { city: c } } { address: { city: c' } } = c == c'
