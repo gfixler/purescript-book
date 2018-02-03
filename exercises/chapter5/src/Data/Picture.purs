@@ -5,6 +5,7 @@ import Prelude
 import Data.Foldable (foldl)
 import Global as Global
 import Math as Math
+import Utils (strJoin)
 
 data Point = Point
   { x :: Number
@@ -20,6 +21,7 @@ data Shape
   | Rectangle Point Number Number
   | Line Point Point
   | Text Point String
+  | Clipped Point Point Picture
 
 showShape :: Shape -> String
 showShape (Circle c r) =
@@ -30,11 +32,18 @@ showShape (Line start end) =
   "Line [start: " <> showPoint start <> ", end: " <> showPoint end <> "]"
 showShape (Text loc text) =
   "Text [location: " <> showPoint loc <> ", text: " <> show text <> "]"
+showShape (Clipped p1 p2 pic) =
+  "Clipped [corner 1: " <> showPoint p1 <> ", corner 2: " <> showPoint p2 <> ", shape: [" <> strJoin ", " (map showShape pic) <> "]]"
 
 type Picture = Array Shape
 
 showPicture :: Picture -> Array String
 showPicture = map showShape
+
+area :: Shape -> Number
+area (Circle _ r) = Math.pi * r * r
+area (Rectangle _ w h) = w * h
+area _ = 0.0
 
 data Bounds = Bounds
   { top    :: Number
@@ -76,6 +85,8 @@ shapeBounds (Text (Point { x, y }) _) = Bounds
   , bottom: y
   , right:  x
   }
+shapeBounds (Clipped p1 p2 pic) =
+  shapeBounds $ Line p1 p2
 
 union :: Bounds -> Bounds -> Bounds
 union (Bounds b1) (Bounds b2) = Bounds
